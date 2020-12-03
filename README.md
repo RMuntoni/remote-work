@@ -8,10 +8,13 @@ Dann "npm run start" aufrufen. Dies startet die React app und den express nodejs
 ## Zeitbuchung
 - Konzeption: 1h
 - Recherche: 1h
-- Implementation Backend: 3h
+- Implementation Backend: 3h30m
 - Implementation React Fronten: 2h
 - Tests: 30m
 - Readme: 30m
+
+Zeit gesamt: 8h30m
+Mittagspause: ca. 1h
 
 ## Anmerkungen
 - Den Refresh von der API habe ich auf Server Ebene eingebunden, da die sqlite DB eher als Server cache fungiert. Aus diesem Grund wird die DB auch truncated anstatt die einzelnen Datensätze zu prüfen und dann upzudaten, removen oder inserten.
