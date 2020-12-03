@@ -9,7 +9,7 @@ Dann "npm run start" aufrufen. Dies startet die React app und den express nodejs
 - Konzeption: 1h
 - Recherche: 1h
 - Implementation Backend: 3h30m
-- Implementation React Fronten: 2h
+- Implementation React Frontend: 2h
 - Tests: 30m
 - Readme: 30m
 
