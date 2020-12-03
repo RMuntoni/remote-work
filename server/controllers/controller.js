@@ -1,71 +1,37 @@
 // Import database
-const knex = require('./../db')
+const dataBaseService = require('./../services/databaseService')
+const movieApiService = require('./../services/movieApiService');
 
-// Retrieve all books
-exports.booksAll = async (req, res) => {
-  // Get all books from database
-  knex
-    .select('*') // select all records
-    .from('books') // from 'books' table
-    .then(userData => {
-      // Send books extracted from database in response
-      res.json(userData)
-    })
-    .catch(err => {
-      // Send a error message in response
-      res.json({ message: `There was an error retrieving books: ${err}` })
-    })
+//refresh the movie and genre data from the API. Is not exposed because the server should refresh the data on its own.
+refreshFromApi = async() => {  
+  const genrePromise = movieApiService.getGenres().then(dataBaseService.updateGenres);
+  const moviePromise = movieApiService.getUpcomingMovies().then(dataBaseService.updateMovies);
+  
+  Promise.all([genrePromise, moviePromise])
+    .then((result) => console.log('Success refresh'))
+    .catch((error) => console.log(`Error on refresh: ${error}`));
 }
 
-// Create new book
-exports.booksCreate = async (req, res) => {
-  // Add new book to database
-  knex('books')
-    .insert({ // insert new record, a book
-      'author': req.body.author,
-      'title': req.body.title,
-      'pubDate': req.body.pubDate,
-      'rating': req.body.rating
-    })
-    .then(() => {
-      // Send a success message in response
-      res.json({ message: `Book \'${req.body.title}\' by ${req.body.author} created.` })
-    })
-    .catch(err => {
-      // Send a error message in response
-      res.json({ message: `There was an error creating ${req.body.title} book: ${err}` })
-    })
+//get all or filtered movies from our db
+exports.getMovies = async(req, res) => {
+  const filter = !!req && !!req.query && req.query.filter;
+  const movies = await dataBaseService.getMovies(filter);
+
+  for(let i = 0; i < movies.length; i++){
+    const movie = movies[i];
+    movie.imagePathBig = `${movieApiService.baseImagePath}w500${movie.imagePath}`;
+    movie.imagePathSmall = `${movieApiService.baseImagePath}w92${movie.imagePath}`;
+  }
+
+  res.json(movies)
 }
 
-// Remove specific book
-exports.booksDelete = async (req, res) => {
-  // Find specific book in the database and remove it
-  knex('books')
-    .where('id', req.body.id) // find correct record based on id
-    .del() // delete the record
-    .then(() => {
-      // Send a success message in response
-      res.json({ message: `Book ${req.body.id} deleted.` })
-    })
-    .catch(err => {
-      // Send a error message in response
-      res.json({ message: `There was an error deleting ${req.body.id} book: ${err}` })
-    })
-}
+//set an interval on the server to refresh the data from the api
+setInterval(() => {
+  refreshFromApi()
+  .then(() => console.log('Refreshed in server'))
+  .catch((err) => console.log(err))}
+  ,1000 * 60 * 10) //10min
 
-// Remove all books on the list
-exports.booksReset = async (req, res) => {
-  // Remove all books from database
-  knex
-    .select('*') // select all records
-    .from('books') // from 'books' table
-    .truncate() // remove the selection
-    .then(() => {
-      // Send a success message in response
-      res.json({ message: 'Book list cleared.' })
-    })
-    .catch(err => {
-      // Send a error message in response
-      res.json({ message: `There was an error resetting book list: ${err}.` })
-    })
-}
+//on startup call the function one time
+refreshFromApi().then(() => console.log('Refreshed in server')).catch((err) => console.log(err));

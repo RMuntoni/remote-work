@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Remote work nodejs & react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Ausführung
+Entwickelt wurde dieses Projekt mit Nodejs, Typescript, sqlite und React.
+Zum starten den API Key noch in movieApiService unter api_key eintragen. Den wollte ich jetzt nicht einchecken. Den API Key kann euch Carsten geben.
+Dann "npm run start" aufrufen. Dies startet die React app und den express nodejs server.
 
-## Available Scripts
+## Zeitbuchung
+- Konzeption: 1h
+- Recherche: 1h
+- Implementation Backend: 3h
+- Implementation React Fronten: 2h
+- Tests: 30m
+- Readme: 30m
 
-In the project directory, you can run:
+## Anmerkungen
+- Den Refresh von der API habe ich auf Server Ebene eingebunden, da die sqlite DB eher als Server cache fungiert. Aus diesem Grund wird die DB auch truncated anstatt die einzelnen Datensätze zu prüfen und dann upzudaten, removen oder inserten.
+- Die images der Filme sind als path in der DB eingspeichert. Da wir hier keinen API key benötigen können wir das cachen der Bilder dem Browser überlassen.
+- Die images der Filme baue ich im Controller noch etwas weiter zusammen, das könnte auch auf ein Businessmodel ausgelagert werden.
+- Die Movie Database will explizit mit dem Text und ihrem Logo auf der Seite referenziert werden bei API Nutzung. Also nicht wundern über das Logo.
+- Die Favoritenfunktion habe ich jetzt im localStorage implementiert damit das nicht sofort wieder verschwindet wenn neugeladen wird oder der User den Browser schließt. 
+- Dieses mal war kein explizites paging gewünscht, daher erstmal nicht implementiert.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Insgesamt eine spannende Challenge für den ersten wirklichen Einstieg, abgesehen von den Tutorials die letzten paar Tage, in die verschiedenen neuen Techniken.
+Cool waren definitiv die React Komponenten und das Knex modul für das linq to sql feeling.
+Da aktuell noch die Erfahrung fehlt ist es gewiss nicht dem Best Practice entsprechend. Da setze ich mich aber auch weiterhin dran um mehr Erfahrungen zu sammeln.
+Vielleicht dann sogar im Academy Team. :D

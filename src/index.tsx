@@ -1,14 +1,12 @@
-// bookshelf-app/src/index.tsx
-
 // Import deps
 import React from 'react'
 import { render } from 'react-dom'
 
 // Import components
-import { Bookshelf } from './components/main'
+import { MovieDashboard } from './components/main'
 
 // Find div container
-const rootElement = document.getElementById('root')
+const rootElement = document.getElementById('root');
 
-// Render Bookshelf component in the DOM
-render(<Bookshelf />, rootElement)
+// Render dashboard component in the DOM
+render(<MovieDashboard />, rootElement);

@@ -1,7 +1,6 @@
 {
   "include": [
-    "./src/*",
-    "src/components/Timer.tsx"
+    "./src/*"
   ],
   "compilerOptions": {
     "target": "es5",
